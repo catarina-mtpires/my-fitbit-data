@@ -17,7 +17,7 @@ class HeartRateClass(DataClass):
     def create_csv(self):
         hr_data = self.read_json()
         dt, value, confidence = [], [], []
-        for i, hr in enumerate(hr_data):
+        for hr in hr_data:
             dt_var = datetime.datetime.strptime(hr["dateTime"], "%m/%d/%y %H:%M:%S")
             minute = round(dt_var.minute / self.minute_int) * self.minute_int
             if minute == 60:
@@ -95,3 +95,29 @@ class ECGClass(DataClass):
         dt = datetime.datetime.strptime(f"{month}/{day}/{year} {start_time}", "%m/%d/%Y %H:%M:%S")
         return dt
 
+
+class HeartRateCompleteClass(DataClass):
+    def __init__(self, year, month, day):
+        super().__init__()
+        self.date = datetime.date(year=year, month=month, day=day)
+        self.orig_dir = f"{c.ORIG_HEART_DIR}heart_rate/heart_rate-{self.date}.json"
+        self.new_dir = f"{c.NEW_HEART_DIR}heart_rate_{self.date}.csv"
+        self.dt_col = "datetime"
+        self.df = self.get_df()
+
+    def create_csv(self):
+        hr_data = self.read_json(files_dir=self.orig_dir)
+        assert hr_data != [], "Date not available"
+        dt, value, confidence = [], [], []
+        for hr in hr_data:
+            dt_var = datetime.datetime.strptime(hr["dateTime"], "%m/%d/%y %H:%M:%S")
+            seconds = round(dt_var.second / 5) * 5
+            if seconds == 60:
+                dt_var += datetime.timedelta(minutes=1)
+                seconds = 0
+            dt.append(dt_var.replace(second=seconds))
+            value.append(hr["value"]["bpm"])
+            confidence.append(hr["value"]["confidence"])
+        df = pd.DataFrame({"datetime": dt, "value": value, "confidence": confidence})
+        df = df.drop_duplicates()
+        df.to_csv(self.new_dir, index=False)
