@@ -13,7 +13,6 @@ class O2VarClass(DataClass):
         self.df = self.get_df()
 
     def create_csv(self):
-        # todo: MINUTE - ROUND TO NEAREST
         df = self.read_csv()
         dts = df.timestamp
         dts_var = []
