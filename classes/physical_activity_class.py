@@ -51,3 +51,19 @@ class CaloriesClass(DailyDataClass):
         self.orig_dir = c.ORIG_CALORIES_DIR
         self.new_dir = c.CALORIES_DIR
         self.df = self.get_df()
+
+
+class DailyReadiness(DataClass):
+    def __init__(self):
+        super().__init__()
+        self.orig_dir = c.ORIG_DRS_DIR
+        self.new_dir = c.DRS_DIR
+        self.dt_col = "datetime"
+        self.df = self.get_df()
+
+    def create_csv(self):
+        df = self.read_csv()
+        df.recorded_time = pd.to_datetime(df.recorded_time)
+        df = df.rename(columns={"recorded_time": "datetime", "temperature": "value"})
+        df = df.drop_duplicates()
+        df.to_csv(self.new_dir, index=False)
