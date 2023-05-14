@@ -13,10 +13,9 @@ class DailyDataClass(DataClass):
         data = self.read_json()
         dt, value = [], []
         for sample in data:
-            if sample["value"] != 0:
-                dt_var = datetime.datetime.strptime(sample["dateTime"], "%m/%d/%y %H:%M:%S")
-                dt.append(dt_var.replace(second=0))
-                value.append(sample["value"])
+            dt_var = datetime.datetime.strptime(sample["dateTime"], "%m/%d/%y %H:%M:%S")
+            dt.append(dt_var.replace(second=0))
+            value.append(sample["value"])
         df = pd.DataFrame({"datetime": dt, "value": value})
         df = df.drop_duplicates()
         df.to_csv(self.new_dir, index=False)
