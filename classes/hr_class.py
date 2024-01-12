@@ -9,8 +9,9 @@ class HeartRateClass(DataClass):
     def __init__(self):
         super().__init__()
         self.minute_int = 1
-        self.orig_dir = c.ORIG_HR_DIR
-        self.new_dir = c.HR_DIR
+        directory = c.HR
+        self.orig_dir = directory["orig"]
+        self.new_dir = directory["new"]
         self.dt_col = "datetime"
         self.df = self.get_df()
 
@@ -36,8 +37,9 @@ class RestingHeartRateClass(DataClass):
 
     def __init__(self):
         super().__init__()
-        self.orig_dir = c.ORIG_RHR_DIR
-        self.new_dir = c.RHR_DIR
+        directory = c.RHR
+        self.orig_dir = directory["orig"]
+        self.new_dir = directory["new"]
         self.dt_col = "date"
         self.df = self.get_df()
 
@@ -58,8 +60,9 @@ class RestingHeartRateClass(DataClass):
 class ECGClass(DataClass):
     def __init__(self):
         super().__init__()
-        self.orig_dir = c.ORIG_ECG_DIR
-        self.new_dir = c.ECG_DIR
+        directory = c.ECG
+        self.orig_dir = directory["orig"]
+        self.new_dir = directory["new"]
         self.dt_col = "datetime"
         self.df = self.get_df()
 

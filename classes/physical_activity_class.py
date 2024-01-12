@@ -24,46 +24,74 @@ class DailyDataClass(DataClass):
 class StepsClass(DailyDataClass):
     def __init__(self):
         super().__init__()
-        self.orig_dir = c.ORIG_STEPS_DIR
-        self.new_dir = c.STEPS_DIR
+        directory = c.STEPS
+        self.orig_dir = directory["orig"]
+        self.new_dir = directory["new"]
         self.df = self.get_df()
 
 
 class DistanceClass(DailyDataClass):
     def __init__(self):
         super().__init__()
-        self.orig_dir = c.ORIG_DISTANCE_DIR
-        self.new_dir = c.DISTANCE_DIR
+        directory = c.DISTANCE
+        self.orig_dir = directory["orig"]
+        self.new_dir = directory["new"]
         self.df = self.get_df()
 
 
 class AltitudeClass(DailyDataClass):
     def __init__(self):
         super().__init__()
-        self.orig_dir = c.ORIG_ALTITUDE_DIR
-        self.new_dir = c.ALTITUDE_DIR
+        directory = c.ALTITUDE
+        self.orig_dir = directory["orig"]
+        self.new_dir = directory["new"]
         self.df = self.get_df()
 
 
 class CaloriesClass(DailyDataClass):
     def __init__(self):
         super().__init__()
-        self.orig_dir = c.ORIG_CALORIES_DIR
-        self.new_dir = c.CALORIES_DIR
+        directory = c.CALORIES
+        self.orig_dir = directory["orig"]
+        self.new_dir = directory["new"]
         self.df = self.get_df()
 
 
-class DailyReadiness(DataClass):
+class DailyReadinessClass(DataClass):
     def __init__(self):
         super().__init__()
-        self.orig_dir = c.ORIG_DRS_DIR
-        self.new_dir = c.DRS_DIR
-        self.dt_col = "datetime"
+        directory = c.DRS
+        self.orig_dir = directory["orig"]
+        self.new_dir = directory["new"]
+        self.dt_col = "date"
         self.df = self.get_df()
 
     def create_csv(self):
         df = self.read_csv()
-        df.recorded_time = pd.to_datetime(df.recorded_time)
-        df = df.rename(columns={"recorded_time": "datetime", "temperature": "value"})
+        df.date = pd.to_datetime(df.date)
+        df = df.rename(columns={"readiness_score_value": "value", "activity_subcomponent": "activity_value",
+                                "sleep_subcomponent": "sleep_value", "hrv_subcomponent": "hrv_value"})
         df = df.drop_duplicates()
         df.to_csv(self.new_dir, index=False)
+
+
+class Vo2MaxClass(DataClass):
+    def __init__(self):
+        super().__init__()
+        directory = c.VO2_MAX
+        self.orig_dir = directory["orig"]
+        self.new_dir = directory["new"]
+        self.dt_col = "date"
+        self.df = self.get_df()
+
+    def create_csv(self):
+        data = self.read_json()
+        dt, value = [], []
+        for sample in data:
+            dt_var = datetime.datetime.strptime(sample["dateTime"], "%m/%d/%y %H:%M:%S")
+            dt.append(dt_var.date())
+            value.append(sample["value"]["demographicVO2Max"])
+        df = pd.DataFrame({"date": dt, "value": value})
+        df = df.drop_duplicates()
+        df.to_csv(self.new_dir, index=False)
+
