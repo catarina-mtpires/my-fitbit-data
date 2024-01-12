@@ -20,10 +20,10 @@ vo2_max = ph_class.Vo2MaxClass()
 
 hrv = sleep_class.HeartRateVariabilityClass()
 wrist_temp = sleep_class.WristTemperatureClass()
-
 drr = sleep_class.RespiratoryRateClass()
 dhrv = sleep_class.DailyHeartRateVariabilityClass()
 hist_hrv = sleep_class.HeartRateVariabilityHistClass()
+sleep_score = sleep_class.SleepScoreClass()
 
 
 
