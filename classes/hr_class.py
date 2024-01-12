@@ -16,7 +16,7 @@ class HeartRateClass(DataClass):
 
     def create_csv(self):
         hr_data = self.read_json()
-        dt, value, confidence = [], [], []
+        dt, values, confidences = [], [], []
         for hr in hr_data:
             dt_var = datetime.datetime.strptime(hr["dateTime"], "%m/%d/%y %H:%M:%S")
             minute = round(dt_var.minute / self.minute_int) * self.minute_int
@@ -24,10 +24,10 @@ class HeartRateClass(DataClass):
                 dt_var += datetime.timedelta(hours=1)
                 minute = 0
             dt.append(dt_var.replace(second=0, minute=minute))
-            value.append(hr["value"]["bpm"])
-            confidence.append(hr["value"]["confidence"])
+            values.append(round(hr["value"]["bpm"]))
+            confidences.append(hr["value"]["confidence"])
 
-        df = pd.DataFrame({"datetime": dt, "value": value, "confidence": confidence})
+        df = pd.DataFrame({"datetime": dt, "value": values, "confidence": confidences})
         df = df.groupby("datetime").agg("mean").reset_index().round(1)
         df.to_csv(self.new_dir, index=False)
 
