@@ -13,7 +13,6 @@ class HeartRateClass(DataClass):
         self.orig_dir = directory["orig"]
         self.new_dir = directory["new"]
         self.dt_col = "datetime"
-        self.df = self.get_df()
 
     def create_csv(self):
         hr_data = self.read_json()
@@ -41,7 +40,6 @@ class RestingHeartRateClass(DataClass):
         self.orig_dir = directory["orig"]
         self.new_dir = directory["new"]
         self.dt_col = "date"
-        self.df = self.get_df()
 
     def create_csv(self):
         rhr_data = self.read_json()
@@ -64,7 +62,6 @@ class ECGClass(DataClass):
         self.orig_dir = directory["orig"]
         self.new_dir = directory["new"]
         self.dt_col = "datetime"
-        self.df = self.get_df()
 
     def create_csv(self):
         signal_duration = 30
@@ -106,10 +103,9 @@ class HeartRateCompleteClass(DataClass):
         self.orig_dir = f"{c.ORIG_HEART_DIR}heart_rate/heart_rate-{self.date}.json"
         self.new_dir = f"{c.NEW_HEART_DIR}heart_rate_{self.date}.csv"
         self.dt_col = "datetime"
-        self.df = self.get_df()
 
     def create_csv(self):
-        hr_data = self.read_json(files_dir=self.orig_dir)
+        hr_data = self.read_json()
         assert hr_data != [], "Date not available"
         dt, value, confidence = [], [], []
         for hr in hr_data:

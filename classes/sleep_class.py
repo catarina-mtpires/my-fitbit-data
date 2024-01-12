@@ -10,7 +10,6 @@ class HeartRateVariabilityClass(DataClass):
         self.orig_dir = directory["orig"]
         self.new_dir = directory["new"]
         self.dt_col = "datetime"
-        self.df = self.get_df()
 
     def create_csv(self):
         df = self.read_csv()
@@ -27,7 +26,6 @@ class WristTemperatureClass(DataClass):
         self.orig_dir = directory["orig"]
         self.new_dir = directory["new"]
         self.dt_col = "datetime"
-        self.df = self.get_df()
 
     def create_csv(self):
         df = self.read_csv()
@@ -44,7 +42,6 @@ class RespiratoryRateClass(DataClass):
         self.orig_dir = directory["orig"]
         self.new_dir = directory["new"]
         self.dt_col = "date"
-        self.df = self.get_df()
 
     def create_csv(self):
         df = self.read_csv()
@@ -62,7 +59,6 @@ class DailyHeartRateVariabilityClass(DataClass):
         self.orig_dir = directory["orig"]
         self.new_dir = directory["new"]
         self.dt_col = "date"
-        self.df = self.get_df()
 
     def create_csv(self):
         df = self.read_csv()
@@ -80,7 +76,6 @@ class HeartRateVariabilityHistClass(DataClass):
         self.orig_dir = directory["orig"]
         self.new_dir = directory["new"]
         self.dt_col = "date"
-        self.df = self.get_df()
 
     def create_csv(self):
         df = self.read_csv()
@@ -97,14 +92,13 @@ class HeartRateVariabilityHistClass(DataClass):
         df.to_csv(self.new_dir, index=False)
 
 
-class SleepScore(DataClass):
+class SleepScoreClass(DataClass):
     def __init__(self):
         super().__init__()
         directory = c.SLEEP_SCORE
         self.orig_dir = directory["orig"]
         self.new_dir = directory["new"]
         self.dt_col = "date"
-        self.df = self.get_df()
 
     def create_csv(self):
         df = self.read_csv()

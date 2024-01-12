@@ -11,7 +11,6 @@ class O2VarClass(DataClass):
         self.orig_dir = directory["orig"]
         self.new_dir = directory["new"]
         self.dt_col = "datetime"
-        self.df = self.get_df()
 
     def create_csv(self):
         df = self.read_csv()

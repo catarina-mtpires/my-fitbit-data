@@ -27,7 +27,6 @@ class StepsClass(DailyDataClass):
         directory = c.STEPS
         self.orig_dir = directory["orig"]
         self.new_dir = directory["new"]
-        self.df = self.get_df()
 
 
 class DistanceClass(DailyDataClass):
@@ -36,7 +35,6 @@ class DistanceClass(DailyDataClass):
         directory = c.DISTANCE
         self.orig_dir = directory["orig"]
         self.new_dir = directory["new"]
-        self.df = self.get_df()
 
 
 class AltitudeClass(DailyDataClass):
@@ -45,7 +43,6 @@ class AltitudeClass(DailyDataClass):
         directory = c.ALTITUDE
         self.orig_dir = directory["orig"]
         self.new_dir = directory["new"]
-        self.df = self.get_df()
 
 
 class CaloriesClass(DailyDataClass):
@@ -54,7 +51,6 @@ class CaloriesClass(DailyDataClass):
         directory = c.CALORIES
         self.orig_dir = directory["orig"]
         self.new_dir = directory["new"]
-        self.df = self.get_df()
 
 
 class DailyReadinessClass(DataClass):
@@ -64,7 +60,6 @@ class DailyReadinessClass(DataClass):
         self.orig_dir = directory["orig"]
         self.new_dir = directory["new"]
         self.dt_col = "date"
-        self.df = self.get_df()
 
     def create_csv(self):
         df = self.read_csv()
@@ -82,7 +77,6 @@ class Vo2MaxClass(DataClass):
         self.orig_dir = directory["orig"]
         self.new_dir = directory["new"]
         self.dt_col = "date"
-        self.df = self.get_df()
 
     def create_csv(self):
         data = self.read_json()

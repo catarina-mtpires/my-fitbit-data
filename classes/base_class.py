@@ -11,11 +11,9 @@ class DataClass:
         self.df = None
         self.dt_col = None
 
-    def read_json(self, files_dir=None):
-        if files_dir is None:
-            files_dir = self.orig_dir
+    def read_json(self):
         data = []
-        files = glob.glob(files_dir)
+        files = glob.glob(self.orig_dir)
         for f_name in files:
             with open(f_name, 'r') as f:
                 data += json.load(f)
@@ -29,15 +27,14 @@ class DataClass:
         data_df = pd.concat(data).drop_duplicates().reset_index(drop=True)
         return data_df
 
-    def get_df(self, files_dir=None):
-        if files_dir is None:
-            files_dir=self.new_dir
+    def initialize_df(self):
         if self.df is None:
+            files_dir = self.new_dir
             if not os.path.exists(files_dir):
                 self.create_csv()
             df = pd.read_csv(files_dir)
             df[self.dt_col] = pd.to_datetime(df[self.dt_col])
-            return df
+            self.df = df
 
     def create_csv(self):
         pass
