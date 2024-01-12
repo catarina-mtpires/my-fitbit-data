@@ -24,7 +24,7 @@ class HeartRateClass(DataClass):
                 dt_var += datetime.timedelta(hours=1)
                 minute = 0
             dt.append(dt_var.replace(second=0, minute=minute))
-            values.append(round(hr["value"]["bpm"]))
+            values.append(hr["value"]["bpm"])
             confidences.append(hr["value"]["confidence"])
 
         df = pd.DataFrame({"datetime": dt, "value": values, "confidence": confidences})
