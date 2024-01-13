@@ -9,7 +9,8 @@ class DataClass:
         self.orig_dir = None
         self.new_dir = None
         self.df = None
-        self.dt_col = None
+        self.dt_col = "datetime"
+        self.value_col = "value"
 
     def read_json(self):
         data = []

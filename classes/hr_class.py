@@ -12,7 +12,6 @@ class HeartRateClass(DataClass):
         directory = c.HR
         self.orig_dir = directory["orig"]
         self.new_dir = directory["new"]
-        self.dt_col = "datetime"
 
     def create_csv(self):
         hr_data = self.read_json()
@@ -27,8 +26,8 @@ class HeartRateClass(DataClass):
             values.append(hr["value"]["bpm"])
             confidences.append(hr["value"]["confidence"])
 
-        df = pd.DataFrame({"datetime": dt, "value": values, "confidence": confidences})
-        df = df.groupby("datetime").agg("mean").reset_index().round(1)
+        df = pd.DataFrame({self.dt_col: dt, self.value_col: values, "confidence": confidences})
+        df = df.groupby(self.dt_col).agg("mean").reset_index().round(1)
         df.to_csv(self.new_dir, index=False)
 
 
@@ -39,18 +38,17 @@ class RestingHeartRateClass(DataClass):
         directory = c.RHR
         self.orig_dir = directory["orig"]
         self.new_dir = directory["new"]
-        self.dt_col = "date"
 
     def create_csv(self):
         rhr_data = self.read_json()
-        dt, value, error = [], [], []
+        dt, values, errors = [], [], []
         for rhr in rhr_data:
             if rhr["value"]["date"] is not None:
                 dt_var = datetime.datetime.strptime(rhr["value"]["date"], "%m/%d/%y")
                 dt.append(dt_var)
-                value.append(round(rhr["value"]["value"], 1))
-                error.append(round(rhr["value"]["error"], 1))
-        df = pd.DataFrame({"date": dt, "value": value, "confidence": error})
+                values.append(round(rhr["value"]["value"], 1))
+                errors.append(round(rhr["value"]["error"], 1))
+        df = pd.DataFrame({self.dt_col: dt, self.value_col: values, "error": errors})
         df = df.drop_duplicates()
         df.to_csv(self.new_dir, index=False)
 
@@ -61,7 +59,6 @@ class ECGClass(DataClass):
         directory = c.ECG
         self.orig_dir = directory["orig"]
         self.new_dir = directory["new"]
-        self.dt_col = "datetime"
 
     def create_csv(self):
         signal_duration = 30
@@ -79,7 +76,7 @@ class ECGClass(DataClass):
             bpm = [ecg.heart_rate] * len(signal)
             result_clf = [ecg.result_classification] * len(signal)
             id = [ecg.reading_id] * len(signal)
-            dfs += [pd.DataFrame({"id": id, "datetime": signal_time, "value": signal, "bpm": bpm,
+            dfs += [pd.DataFrame({"id": id, self.dt_col: signal_time, self.value_col: signal, "bpm": bpm,
                                   "result_classification": result_clf})]
 
         df = pd.concat(dfs).reset_index(drop=True)
@@ -102,12 +99,11 @@ class HeartRateCompleteClass(DataClass):
         self.date = datetime.date(year=year, month=month, day=day)
         self.orig_dir = f"{c.ORIG_HEART_DIR}heart_rate/heart_rate-{self.date}.json"
         self.new_dir = f"{c.NEW_HEART_DIR}heart_rate_{self.date}.csv"
-        self.dt_col = "datetime"
 
     def create_csv(self):
         hr_data = self.read_json()
         assert hr_data != [], "Date not available"
-        dt, value, confidence = [], [], []
+        dt, values, confidences = [], [], []
         for hr in hr_data:
             dt_var = datetime.datetime.strptime(hr["dateTime"], "%m/%d/%y %H:%M:%S")
             seconds = round(dt_var.second / 5) * 5
@@ -115,8 +111,8 @@ class HeartRateCompleteClass(DataClass):
                 dt_var += datetime.timedelta(minutes=1)
                 seconds = 0
             dt.append(dt_var.replace(second=seconds))
-            value.append(hr["value"]["bpm"])
-            confidence.append(hr["value"]["confidence"])
-        df = pd.DataFrame({"datetime": dt, "value": value, "confidence": confidence})
-        df = df.drop_duplicates()
+            values.append(hr["value"]["bpm"])
+            confidences.append(hr["value"]["confidence"])
+        df = pd.DataFrame({self.dt_col: dt, self.value_col: values, "confidence": confidences})
+        df = df.groupby(self.dt_col).agg("mean").reset_index().round(1)
         df.to_csv(self.new_dir, index=False)

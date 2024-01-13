@@ -7,7 +7,6 @@ from classes.base_class import DataClass
 class DailyDataClass(DataClass):
     def __init__(self):
         super().__init__()
-        self.dt_col = "datetime"
 
     def create_csv(self):
         data = self.read_json()
@@ -16,7 +15,7 @@ class DailyDataClass(DataClass):
             dt_var = datetime.datetime.strptime(sample["dateTime"], "%m/%d/%y %H:%M:%S")
             dt.append(dt_var.replace(second=0))
             value.append(sample["value"])
-        df = pd.DataFrame({"datetime": dt, "value": value})
+        df = pd.DataFrame({self.dt_col: dt, self.value_col: value})
         df = df.drop_duplicates()
         df.to_csv(self.new_dir, index=False)
 
@@ -59,12 +58,11 @@ class DailyReadinessClass(DataClass):
         directory = c.DRS
         self.orig_dir = directory["orig"]
         self.new_dir = directory["new"]
-        self.dt_col = "date"
 
     def create_csv(self):
         df = self.read_csv()
         df.date = pd.to_datetime(df.date)
-        df = df.rename(columns={"readiness_score_value": "value", "activity_subcomponent": "activity_value",
+        df = df.rename(columns={"date": self.dt_col, "readiness_score_value": self.value_col, "activity_subcomponent": "activity_value",
                                 "sleep_subcomponent": "sleep_value", "hrv_subcomponent": "hrv_value"})
         df = df.drop_duplicates()
         df.to_csv(self.new_dir, index=False)
@@ -76,7 +74,6 @@ class Vo2MaxClass(DataClass):
         directory = c.VO2_MAX
         self.orig_dir = directory["orig"]
         self.new_dir = directory["new"]
-        self.dt_col = "date"
 
     def create_csv(self):
         data = self.read_json()
@@ -85,7 +82,7 @@ class Vo2MaxClass(DataClass):
             dt_var = datetime.datetime.strptime(sample["dateTime"], "%m/%d/%y %H:%M:%S")
             dt.append(dt_var.date())
             value.append(sample["value"]["demographicVO2Max"])
-        df = pd.DataFrame({"date": dt, "value": value})
+        df = pd.DataFrame({self.dt_col: dt, self.value_col: value})
         df = df.drop_duplicates()
         df.to_csv(self.new_dir, index=False)
 

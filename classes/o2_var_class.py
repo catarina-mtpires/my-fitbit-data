@@ -10,7 +10,6 @@ class O2VarClass(DataClass):
         directory = c.O2_VAR
         self.orig_dir = directory["orig"]
         self.new_dir = directory["new"]
-        self.dt_col = "datetime"
 
     def create_csv(self):
         df = self.read_csv()
@@ -23,5 +22,5 @@ class O2VarClass(DataClass):
                 dt_var += datetime.timedelta(minutes=1)
             dts_var.append(dt_var.replace(second=0))
         df["timestamp"] = dts_var
-        df = df.rename(columns={"timestamp": self.dt_col, "Infrared to Red Signal Ratio": "value"})
+        df = df.rename(columns={"timestamp": self.dt_col, "Infrared to Red Signal Ratio": self.value_col})
         df.to_csv(self.new_dir,  index=False)

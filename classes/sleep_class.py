@@ -9,12 +9,11 @@ class HeartRateVariabilityClass(DataClass):
         directory = c.HRV_DETAILED
         self.orig_dir = directory["orig"]
         self.new_dir = directory["new"]
-        self.dt_col = "datetime"
 
     def create_csv(self):
         df = self.read_csv()
         df.timestamp = pd.to_datetime(df.timestamp)
-        df = df.rename(columns={"timestamp": self.dt_col, "rmssd": "value"})
+        df = df.rename(columns={"timestamp": self.dt_col, "rmssd": self.value_col})
         df = df.drop_duplicates()
         df.to_csv(self.new_dir, index=False)
 
@@ -25,12 +24,11 @@ class WristTemperatureClass(DataClass):
         directory = c.WRIST_TEMP
         self.orig_dir = directory["orig"]
         self.new_dir = directory["new"]
-        self.dt_col = "datetime"
 
     def create_csv(self):
         df = self.read_csv()
         df.recorded_time = pd.to_datetime(df.recorded_time)
-        df = df.rename(columns={"recorded_time": self.dt_col, "temperature": "value"})
+        df = df.rename(columns={"recorded_time": self.dt_col, "temperature": self.value_col})
         df = df.drop_duplicates()
         df.to_csv(self.new_dir, index=False)
 
@@ -41,7 +39,6 @@ class RespiratoryRateClass(DataClass):
         directory = c.DRR
         self.orig_dir = directory["orig"]
         self.new_dir = directory["new"]
-        self.dt_col = "date"
 
     def create_csv(self):
         df = self.read_csv()
@@ -58,13 +55,12 @@ class DailyHeartRateVariabilityClass(DataClass):
         directory = c.HRV_DAILY
         self.orig_dir = directory["orig"]
         self.new_dir = directory["new"]
-        self.dt_col = "date"
 
     def create_csv(self):
         df = self.read_csv()
         df.timestamp = pd.to_datetime(df.timestamp)
         df = df.drop(columns=["nremhr", "entropy"], axis=1)
-        df = df.rename(columns={"timestamp": self.dt_col, "rmssd": "value"})
+        df = df.rename(columns={"timestamp": self.dt_col, "rmssd": self.value_col})
         df = df.drop_duplicates()
         df.to_csv(self.new_dir, index=False)
 
@@ -75,7 +71,6 @@ class HeartRateVariabilityHistClass(DataClass):
         directory = c.HRV_HIST
         self.orig_dir = directory["orig"]
         self.new_dir = directory["new"]
-        self.dt_col = "date"
 
     def create_csv(self):
         df = self.read_csv()
@@ -87,7 +82,7 @@ class HeartRateVariabilityHistClass(DataClass):
             signal = hist.bucket_values[1:-1].split(", ")
             signal = [float(sample) for sample in signal]
             dt = [hist.timestamp] * len(signal)
-            dfs += [pd.DataFrame({"date": dt, "value": signal})]
+            dfs += [pd.DataFrame({self.dt_col: dt, self.value_col: signal})]
         df = pd.concat(dfs).reset_index(drop=True)
         df.to_csv(self.new_dir, index=False)
 
@@ -98,7 +93,6 @@ class SleepScoreClass(DataClass):
         directory = c.SLEEP_SCORE
         self.orig_dir = directory["orig"]
         self.new_dir = directory["new"]
-        self.dt_col = "date"
 
     def create_csv(self):
         df = self.read_csv()
