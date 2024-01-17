@@ -2,14 +2,21 @@ import classes.hr_class as hr_class
 import classes.o2_var_class as o2_var_class
 import classes.physical_activity_class as ph_class
 import classes.sleep_class as sleep_class
+import classes.stress_class as stress_class
 
 
 hr = hr_class.HeartRateClass()
 rhr = hr_class.RestingHeartRateClass()
 ecg = hr_class.ECGClass()
-hr_complete = hr_class.HeartRateCompleteClass(year=2022, month=5, day=13)
+hr_complete = hr_class.HeartRateCompleteClass(year=2023, month=5, day=13)
+
+hr.initialize_df()
+rhr.initialize_df()
+ecg.initialize_df()
+hr_complete.initialize_df()
 
 o2_var = o2_var_class.O2VarClass()
+o2_var.initialize_df()
 
 steps = ph_class.StepsClass()
 distance = ph_class.DistanceClass()
@@ -18,12 +25,26 @@ calories = ph_class.CaloriesClass()
 drs = ph_class.DailyReadinessClass()
 vo2_max = ph_class.Vo2MaxClass()
 
+steps.initialize_df()
+distance.initialize_df()
+altitude.initialize_df()
+calories.initialize_df()
+drs.initialize_df()
+vo2_max.initialize_df()
+
 hrv = sleep_class.HeartRateVariabilityClass()
 wrist_temp = sleep_class.WristTemperatureClass()
-drr = sleep_class.RespiratoryRateClass()
+rr = sleep_class.RespiratoryRateClass()
 dhrv = sleep_class.DailyHeartRateVariabilityClass()
 hist_hrv = sleep_class.HeartRateVariabilityHistClass()
 sleep_score = sleep_class.SleepScoreClass()
 
+hrv.initialize_df()
+wrist_temp.initialize_df()
+rr.initialize_df()
+dhrv.initialize_df()
+hist_hrv.initialize_df()
+sleep_score.initialize_df()
 
-
+stress_score = stress_class.StressScoreClass()
+stress_score.initialize_df()

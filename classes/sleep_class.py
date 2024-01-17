@@ -36,7 +36,7 @@ class WristTemperatureClass(DataClass):
 class RespiratoryRateClass(DataClass):
     def __init__(self):
         super().__init__()
-        directory = c.DRR
+        directory = c.RR
         self.orig_dir = directory["orig"]
         self.new_dir = directory["new"]
 
@@ -100,7 +100,7 @@ class SleepScoreClass(DataClass):
         df.timestamp = pd.to_datetime(df.timestamp)
         df = df.groupby(df.timestamp.dt.date).head(1)
         df.timestamp = df.timestamp.dt.date
-        df = df.rename(columns={"timestamp": self.dt_col})
+        df = df.rename(columns={"timestamp": self.dt_col, "overall_score": self.value_col})
         df.to_csv(self.new_dir, index=False)
 
 

@@ -4,22 +4,23 @@ ORIG_PH_DIR = "fitbit_data/original_data/physical_activity/"
 ORIG_SLEEP_DATA_DIR = "fitbit_data/original_data/sleep/"
 ORIG_STRESS_DIR = "fitbit_data/original_data/stress/"
 ORIG_O2_DIR = "fitbit_data/original_data/estimated_oxygen_variation/"
-ORIG_MENST_DIR = "fitbit_data/original_data/menstrual_health_cycles/"
+ORIG_MENST_DIR = "fitbit_data/original_data/menstrual_cycles/"
 
 NEW_HEART_DIR = "fitbit_data/new_data/heart/"
 NEW_PH_DIR = "fitbit_data/new_data/physical_activity/"
 NEW_SLEEP_DIR = "fitbit_data/new_data/sleep/"
 NEW_STRESS_DIR = "fitbit_data/new_data/stress/"
 NEW_O2_DIR = "fitbit_data/new_data/estimated_oxygen_variation/"
-NEW_MENST_DIR = "fitbit_data/new_data/menstrual_health_cycles/"
+NEW_MENST_DIR = "fitbit_data/new_data/menstrual_cycles/"
 
+# Single daily data
 RHR = {"orig": ORIG_HEART_DIR + "resting_heart_rate/resting_heart_rate-*.json",
        "new": NEW_HEART_DIR + "resting_heart_rate.csv"}
 DRS = {"orig": ORIG_PH_DIR + "daily_readiness/Daily Readiness Score - *.csv",
        "new": NEW_PH_DIR + "daily_readiness.csv"}
 VO2_MAX = {"orig": ORIG_PH_DIR + "demographic_vo2_max/demographic_vo2_max-*.json",
            "new": NEW_PH_DIR + "demographic_vo2_max.csv"}
-DRR = {"orig": ORIG_SLEEP_DATA_DIR + "respiratory_rate/Respiratory Rate Summary - *.csv",
+RR = {"orig": ORIG_SLEEP_DATA_DIR + "respiratory_rate/Respiratory Rate Summary - *.csv",
        "new": NEW_SLEEP_DIR + "respiratory_rate.csv"}
 HRV_DAILY = {"orig": ORIG_SLEEP_DATA_DIR + "heart_rate_variability/daily/Daily Heart Rate Variability Summary - *.csv",
              "new": NEW_SLEEP_DIR + "heart_rate_variability_daily.csv"}
@@ -27,6 +28,8 @@ HRV_HIST = {"orig": ORIG_SLEEP_DATA_DIR + "heart_rate_variability/histogram/Hear
             "new": NEW_SLEEP_DIR + "heart_rate_variability_histogram.csv"}
 SLEEP_SCORE = {"orig": ORIG_SLEEP_DATA_DIR + "sleep/sleep_score.csv",
                "new": NEW_SLEEP_DIR + "sleep_score.csv"}
+STRESS_SCORE = {"orig": ORIG_STRESS_DIR + "stress_score/Stress Score.csv",
+                "new": NEW_STRESS_DIR + "stress_score.csv"}
 
 # Multiple daily data
 HR = {"orig": ORIG_HEART_DIR + "heart_rate/heart_rate-*.json",
@@ -47,13 +50,10 @@ WRIST_TEMP = {"orig": ORIG_SLEEP_DATA_DIR + "temperature/wrist/Wrist Temperature
               "new": NEW_SLEEP_DIR + "wrist_temperature.csv"}
 
 # Recorded activity and signals
-ECG = {"orig": ORIG_HEART_DIR + "ecg/ecg_readings.csv",
+ECG = {"orig": ORIG_HEART_DIR + "ecg/afib_ecg_reading_*.csv",
        "new": NEW_HEART_DIR + "ecg.csv"}
 
 # Missing
-ORIG_STRESS_SCORE = ORIG_STRESS_DIR + "stress_score/Stress Score.csv"
-STRESS_SCORE = NEW_STRESS_DIR + "stress_score.csv"
-
 ORIG_COMP_TEMP = ORIG_SLEEP_DATA_DIR + "temperature/computed/Computed Temperature - *.csv"
 COMP_TEMP = NEW_SLEEP_DIR + "computed_temperature.csv"
 
