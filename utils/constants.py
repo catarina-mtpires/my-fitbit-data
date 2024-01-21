@@ -30,6 +30,8 @@ SLEEP_SCORE = {"orig": ORIG_SLEEP_DIR + "sleep/sleep_score.csv",
                "new": NEW_SLEEP_DIR + "sleep_score.csv"}
 STRESS_SCORE = {"orig": ORIG_STRESS_DIR + "stress_score/Stress Score.csv",
                 "new": NEW_STRESS_DIR + "stress_score.csv"}
+COMP_TEMP = {"orig": ORIG_SLEEP_DIR + "temperature/computed/Computed Temperature - *.csv",
+             "new": NEW_SLEEP_DIR + "computed_temperature.csv"}
 
 # Multiple daily data
 HR = {"orig": ORIG_HEART_DIR + "heart_rate/heart_rate-*.json",
@@ -48,47 +50,46 @@ HRV_DETAILED = {"orig": ORIG_SLEEP_DIR + "heart_rate_variability/details/Heart R
                 "new": NEW_SLEEP_DIR + "heart_rate_variability_details.csv"}
 WRIST_TEMP = {"orig": ORIG_SLEEP_DIR + "temperature/wrist/Wrist Temperature - *.csv",
               "new": NEW_SLEEP_DIR + "wrist_temperature.csv"}
+MIN_SPO2 = {"orig": ORIG_SLEEP_DIR + "minute_spo2/Minute SpO2 - *.csv",
+            "new": NEW_SLEEP_DIR + "minute_spo2.csv"}
 
 # Recorded activity and signals
 ECG = {"orig": ORIG_HEART_DIR + "ecg/afib_ecg_reading_*.csv",
        "new": NEW_HEART_DIR + "ecg.csv"}
 
-# Missing
-COMP_TEMP = {"old": ORIG_SLEEP_DIR + "temperature/computed/Computed Temperature - *.csv",
-             "new": NEW_SLEEP_DIR + "computed_temperature.csv"}
 
-SLEEP = {"old": ORIG_SLEEP_DIR + "sleep/sleep-*.json",
+# Missing
+SLEEP = {"orig": ORIG_SLEEP_DIR + "sleep/sleep-*.json",
          "new": NEW_SLEEP_DIR + "sleep_data.csv"}
 
-TIME_IN_HR_ZONES = {"old": ORIG_PH_DIR + "time_in_heart_rate_zones/time_in_heart_rate_zones-*.json",
+TIME_IN_HR_ZONES = {"orig": ORIG_PH_DIR + "time_in_heart_rate_zones/time_in_heart_rate_zones-*.json",
                     "new": NEW_PH_DIR + "time_in_heart_rate_zones.csv"}
 
-AZM = {"old": ORIG_PH_DIR + "active_minutes/active_zone_minutes/Active Zone Minutes - *.csv",
+AZM = {"orig": ORIG_PH_DIR + "active_minutes/active_zone_minutes/Active Zone Minutes - *.csv",
        "new": NEW_PH_DIR + "active_zone_minutes.csv"}
 
-AZM_LIGHT = {"old": ORIG_PH_DIR + "active_minutes/lightly_active_minutes/lightly_active_minutes-*.json",
+AZM_LIGHT = {"orig": ORIG_PH_DIR + "active_minutes/lightly_active_minutes/lightly_active_minutes-*.json",
              "new": NEW_PH_DIR + "lightly_active_minutes.csv"}
 
-AZM_MODERATE = {"old": ORIG_PH_DIR + "active_minutes/moderately_active_minutes/moderately_active_minutes-*.json",
+AZM_MODERATE = {"orig": ORIG_PH_DIR + "active_minutes/moderately_active_minutes/moderately_active_minutes-*.json",
                 "new": NEW_PH_DIR + "moderately_active_minutes.csv"}
 
-AZM_SEDENTARY = {"old": ORIG_PH_DIR + "active_minutes/sedentary_minutes/sedentary_minutes-*.json",
+AZM_SEDENTARY = {"orig": ORIG_PH_DIR + "active_minutes/sedentary_minutes/sedentary_minutes-*.json",
                  "new": NEW_PH_DIR + "sedentary_minutes.csv"}
 
-AZM_VERY_ACTIVE = {"old": ORIG_PH_DIR + "active_minutes/very_active_minutes/very_active_minutes-*.json",
+AZM_VERY_ACTIVE = {"orig": ORIG_PH_DIR + "active_minutes/very_active_minutes/very_active_minutes-*.json",
                    "new": NEW_PH_DIR + "very_active_minutes.csv"}
 
-EXERCISE = {"old": ORIG_PH_DIR + "exercise/exercise-*.json",
+EXERCISE = {"orig": ORIG_PH_DIR + "exercise/exercise-*.json",
             "new": NEW_PH_DIR + "exercise_data.csv"}
 
-SNORE = {"old": ORIG_SLEEP_DIR + "snore/Snore Details - *.csv",
+SNORE = {"orig": ORIG_SLEEP_DIR + "snore/Snore Details - *.csv",
          "new": NEW_SLEEP_DIR + "snore_data.csv"}
 
-EDA = {"old": ORIG_STRESS_DIR + "eda/mindfulness_eda_data_sessions.csv",
+EDA = {"orig": ORIG_STRESS_DIR + "eda/mindfulness_eda_data_sessions.csv",
        "new": NEW_STRESS_DIR + "eda_data.csv"}
 
-MENST = {"old": ORIG_MENST_DIR + "menstrual_health_cycles.csv",
+MENST = {"orig": ORIG_MENST_DIR + "menstrual_health_cycles.csv",
          "new": NEW_MENST_DIR + "menstrual_cycles.csv"}
 
-MIN_SPO2 = {"old": ORIG_SLEEP_DIR + "minute_spo2/Minute SpO2 - *.csv",
-            "new": NEW_SLEEP_DIR + "minute_spo2.csv"}
+
