@@ -134,3 +134,17 @@ class MinSPO2Class(DataClass):
         df.to_csv(self.new_dir, index=False)
 
 
+class SnoreClass(DataClass):
+    def __init__(self):
+        super().__init__()
+        directory = c.SNORE
+        self.orig_dir = directory["orig"]
+        self.new_dir = directory["new"]
+
+    def create_csv(self):
+        df = self.read_csv()
+        df.timestamp = pd.to_datetime(df.timestamp)
+        df = df.drop(columns=["sample_duration"], axis=1)
+        df = df.rename(columns={"timestamp": self.dt_col, "mean_dba": self.value_col})
+        df.to_csv(self.new_dir, index=False)
+

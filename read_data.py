@@ -42,6 +42,7 @@ if done:
     sleep_score = sleep_class.SleepScoreClass()
     comp_temp = sleep_class.ComputedTemperatureClass()
     min_spo2 = sleep_class.MinSPO2Class()
+    snore = sleep_class.SnoreClass()
 
     hrv.initialize_df()
     wrist_temp.initialize_df()
@@ -51,6 +52,7 @@ if done:
     sleep_score.initialize_df()
     comp_temp.initialize_df()
     min_spo2.initialize_df()
+    snore.initialize_df()
 
     stress_score = stress_class.StressScoreClass()
     eda = stress_class.EDAClass()

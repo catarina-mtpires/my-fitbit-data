@@ -58,6 +58,8 @@ ECG = {"orig": ORIG_HEART_DIR + "ecg/afib_ecg_reading_*.csv",
        "new": NEW_HEART_DIR + "ecg.csv"}
 EDA = {"orig": ORIG_STRESS_DIR + "eda/mindfulness_eda_data_sessions.csv",
        "new": NEW_STRESS_DIR + "eda_data.csv"}
+SNORE = {"orig": ORIG_SLEEP_DIR + "snore/Snore Details - *.csv",
+         "new": NEW_SLEEP_DIR + "snore_data.csv"}
 
 # Other
 MENST = {"orig": ORIG_MENST_DIR + "menstrual_health_cycles.csv",
@@ -89,8 +91,7 @@ AZM_VERY_ACTIVE = {"orig": ORIG_PH_DIR + "active_minutes/very_active_minutes/ver
 EXERCISE = {"orig": ORIG_PH_DIR + "exercise/exercise-*.json",
             "new": NEW_PH_DIR + "exercise_data.csv"}
 
-SNORE = {"orig": ORIG_SLEEP_DIR + "snore/Snore Details - *.csv",
-         "new": NEW_SLEEP_DIR + "snore_data.csv"}
+
 
 
 
