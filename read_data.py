@@ -26,6 +26,7 @@ if done:
     calories = ph_class.CaloriesClass()
     drs = ph_class.DailyReadinessClass()
     vo2_max = ph_class.Vo2MaxClass()
+    time_hr_zones = ph_class.TimeHRZonesClass()
 
     steps.initialize_df()
     distance.initialize_df()
@@ -33,6 +34,7 @@ if done:
     calories.initialize_df()
     drs.initialize_df()
     vo2_max.initialize_df()
+    time_hr_zones.initialize_df()
 
     hrv = sleep_class.HeartRateVariabilityClass()
     wrist_temp = sleep_class.WristTemperatureClass()

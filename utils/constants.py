@@ -32,6 +32,8 @@ STRESS_SCORE = {"orig": ORIG_STRESS_DIR + "stress_score/Stress Score.csv",
                 "new": NEW_STRESS_DIR + "stress_score.csv"}
 COMP_TEMP = {"orig": ORIG_SLEEP_DIR + "temperature/computed/Computed Temperature - *.csv",
              "new": NEW_SLEEP_DIR + "computed_temperature.csv"}
+TIME_IN_HR_ZONES = {"orig": ORIG_PH_DIR + "time_in_heart_rate_zones/time_in_heart_rate_zones-*.json",
+                    "new": NEW_PH_DIR + "time_in_heart_rate_zones.csv"}
 
 # Multiple daily data
 HR = {"orig": ORIG_HEART_DIR + "heart_rate/heart_rate-*.json",
@@ -69,9 +71,6 @@ MENST = {"orig": ORIG_MENST_DIR + "menstrual_health_cycles.csv",
 # Missing
 SLEEP = {"orig": ORIG_SLEEP_DIR + "sleep/sleep-*.json",
          "new": NEW_SLEEP_DIR + "sleep_data.csv"}
-
-TIME_IN_HR_ZONES = {"orig": ORIG_PH_DIR + "time_in_heart_rate_zones/time_in_heart_rate_zones-*.json",
-                    "new": NEW_PH_DIR + "time_in_heart_rate_zones.csv"}
 
 AZM = {"orig": ORIG_PH_DIR + "active_minutes/active_zone_minutes/Active Zone Minutes - *.csv",
        "new": NEW_PH_DIR + "active_zone_minutes.csv"}
