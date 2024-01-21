@@ -53,7 +53,10 @@ if done:
     min_spo2.initialize_df()
 
     stress_score = stress_class.StressScoreClass()
+    eda = stress_class.EDAClass()
+
     stress_score.initialize_df()
+    eda.initialize_df()
 
     menstrual_cycles = m_cycles_class.MenstrualCycleClass()
     menstrual_cycles.initialize_df()
