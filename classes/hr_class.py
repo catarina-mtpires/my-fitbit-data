@@ -59,6 +59,7 @@ class ECGClass(DataClass):
         directory = c.ECG
         self.orig_dir = directory["orig"]
         self.new_dir = directory["new"]
+        self.id_col = "id"
 
     def create_csv(self):
         signal_duration = 30
@@ -76,7 +77,7 @@ class ECGClass(DataClass):
             bpm = [ecg.heart_rate] * len(signal)
             result_clf = [ecg.result_classification] * len(signal)
             id = [ecg.reading_id] * len(signal)
-            dfs += [pd.DataFrame({"id": id, self.dt_col: signal_time, self.value_col: signal, "bpm": bpm,
+            dfs += [pd.DataFrame({self.id_col: id, self.dt_col: signal_time, self.value_col: signal, "bpm": bpm,
                                   "result_classification": result_clf})]
 
         df = pd.concat(dfs).reset_index(drop=True)
