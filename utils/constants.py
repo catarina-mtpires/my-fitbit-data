@@ -57,6 +57,10 @@ MIN_SPO2 = {"orig": ORIG_SLEEP_DIR + "minute_spo2/Minute SpO2 - *.csv",
 ECG = {"orig": ORIG_HEART_DIR + "ecg/afib_ecg_reading_*.csv",
        "new": NEW_HEART_DIR + "ecg.csv"}
 
+# Other
+MENST = {"orig": ORIG_MENST_DIR + "menstrual_health_cycles.csv",
+         "new": NEW_MENST_DIR + "menstrual_cycles.csv"}
+
 
 # Missing
 SLEEP = {"orig": ORIG_SLEEP_DIR + "sleep/sleep-*.json",
@@ -89,7 +93,6 @@ SNORE = {"orig": ORIG_SLEEP_DIR + "snore/Snore Details - *.csv",
 EDA = {"orig": ORIG_STRESS_DIR + "eda/mindfulness_eda_data_sessions.csv",
        "new": NEW_STRESS_DIR + "eda_data.csv"}
 
-MENST = {"orig": ORIG_MENST_DIR + "menstrual_health_cycles.csv",
-         "new": NEW_MENST_DIR + "menstrual_cycles.csv"}
+
 
 
