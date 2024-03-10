@@ -6,12 +6,16 @@ import pandas as pd
 
 class DataClass:
     def __init__(self, orig_dir=None, new_dir=None, dt_col="datetime", value_col="value", initialize_df=True,
-                 sort_values=True):
+                 sort_values=True, additional_dt_cols=None):
         self.orig_dir = orig_dir
         self.new_dir = new_dir
         self.dt_col = dt_col
         self.value_col = value_col
         self.df = None
+        dt_cols = [self.dt_col]
+        if additional_dt_cols:
+            dt_cols += additional_dt_cols
+        self.dt_cols = dt_cols
         if initialize_df:
             self.initialize_df(sort_values=sort_values)
 
@@ -37,7 +41,8 @@ class DataClass:
             if not os.path.exists(files_dir):
                 self.create_csv(sort_values=sort_values)
             df = pd.read_csv(files_dir)
-            df[self.dt_col] = pd.to_datetime(df[self.dt_col])
+            for col in self.dt_cols:
+                df[col] = pd.to_datetime(df[col])
             self.df = df
 
     def create_csv(self, sort_values=True):
