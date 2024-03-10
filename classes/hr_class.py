@@ -6,14 +6,14 @@ from classes.base_class import DataClass
 
 
 class HeartRateClass(DataClass):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, initialize_df=True):
         self.minute_int = 1
         directory = c.HR
-        self.orig_dir = directory["orig"]
-        self.new_dir = directory["new"]
+        orig_dir = directory["orig"]
+        new_dir = directory["new"]
+        super().__init__(orig_dir=orig_dir, new_dir=new_dir, initialize_df=initialize_df)
 
-    def create_csv(self):
+    def create_df(self):
         hr_data = self.read_json()
         dt, values, confidences = [], [], []
         for hr in hr_data:
@@ -28,18 +28,19 @@ class HeartRateClass(DataClass):
 
         df = pd.DataFrame({self.dt_col: dt, self.value_col: values, "confidence": confidences})
         df = df.groupby(self.dt_col).agg("mean").reset_index().round(1)
-        df.to_csv(self.new_dir, index=False)
+
+        return df
 
 
 class RestingHeartRateClass(DataClass):
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, initialize_df=True):
         directory = c.RHR
-        self.orig_dir = directory["orig"]
-        self.new_dir = directory["new"]
+        orig_dir = directory["orig"]
+        new_dir = directory["new"]
+        super().__init__(orig_dir=orig_dir, new_dir=new_dir, initialize_df=initialize_df)
 
-    def create_csv(self):
+    def create_df(self):
         rhr_data = self.read_json()
         dt, values, errors = [], [], []
         for rhr in rhr_data:
@@ -49,19 +50,19 @@ class RestingHeartRateClass(DataClass):
                 values.append(round(rhr["value"]["value"], 1))
                 errors.append(round(rhr["value"]["error"], 1))
         df = pd.DataFrame({self.dt_col: dt, self.value_col: values, "error": errors})
-        df = df.drop_duplicates()
-        df.to_csv(self.new_dir, index=False)
+
+        return df
 
 
 class ECGClass(DataClass):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, initialize_df=True):
         directory = c.ECG
-        self.orig_dir = directory["orig"]
-        self.new_dir = directory["new"]
+        orig_dir = directory["orig"]
+        new_dir = directory["new"]
         self.id_col = "id"
+        super().__init__(orig_dir=orig_dir, new_dir=new_dir, initialize_df=initialize_df, sort_values=False)
 
-    def create_csv(self):
+    def create_df(self):
         signal_duration = 30
         ecg_df = self.read_csv()
         cols = ["wire_id", "heart_rate_alert", "firmware_version", "device_app_version", "hardware_version"]
@@ -77,11 +78,13 @@ class ECGClass(DataClass):
             bpm = [ecg.heart_rate] * len(signal)
             result_clf = [ecg.result_classification] * len(signal)
             id = [ecg.reading_id] * len(signal)
-            dfs += [pd.DataFrame({self.id_col: id, self.dt_col: signal_time, self.value_col: signal, "bpm": bpm,
-                                  "result_classification": result_clf})]
-
+            df = pd.DataFrame({self.id_col: id, self.dt_col: signal_time, self.value_col: signal, "bpm": bpm,
+                               "result_classification": result_clf})
+            df = df.sort_values(self.dt_col).reset_index(drop=True)
+            dfs += [df]
         df = pd.concat(dfs).reset_index(drop=True)
-        df.to_csv(self.new_dir, index=False)
+
+        return df
 
     @staticmethod
     def get_dt_from_str(reading_time):
@@ -95,13 +98,13 @@ class ECGClass(DataClass):
 
 
 class HeartRateCompleteClass(DataClass):
-    def __init__(self, year, month, day):
-        super().__init__()
+    def __init__(self, year, month, day, initialize_df=True):
         self.date = datetime.date(year=year, month=month, day=day)
-        self.orig_dir = f"{c.ORIG_HEART_DIR}heart_rate/heart_rate-{self.date}.json"
-        self.new_dir = f"{c.NEW_HEART_DIR}heart_rate_{self.date}.csv"
+        orig_dir = f"{c.ORIG_HEART_DIR}heart_rate/heart_rate-{self.date}.json"
+        new_dir = f"{c.NEW_HEART_DIR}heart_rate_{self.date}.csv"
+        super().__init__(orig_dir=orig_dir, new_dir=new_dir, initialize_df=initialize_df)
 
-    def create_csv(self):
+    def create_df(self):
         hr_data = self.read_json()
         assert hr_data != [], "Date not available"
         dt, values, confidences = [], [], []
@@ -116,4 +119,5 @@ class HeartRateCompleteClass(DataClass):
             confidences.append(hr["value"]["confidence"])
         df = pd.DataFrame({self.dt_col: dt, self.value_col: values, "confidence": confidences})
         df = df.groupby(self.dt_col).agg("mean").reset_index().round(1)
-        df.to_csv(self.new_dir, index=False)
+
+        return df

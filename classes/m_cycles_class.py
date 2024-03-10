@@ -4,13 +4,13 @@ from classes.base_class import DataClass
 
 
 class MenstrualCycleClass(DataClass):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, initialize_df=True):
         directory = c.MENST
-        self.orig_dir = directory["orig"]
-        self.new_dir = directory["new"]
+        orig_dir = directory["orig"]
+        new_dir = directory["new"]
+        super().__init__(orig_dir=orig_dir, new_dir=new_dir, initialize_df=initialize_df)
 
-    def create_csv(self):
+    def create_df(self):
         df = self.read_csv()
         df = df[df["period_source"] == "manual"]
         df = df.drop(columns=["id", "cycle_start_date", "cycle_end_date", "ovulation_start_date", "ovulation_end_date",
@@ -18,4 +18,5 @@ class MenstrualCycleClass(DataClass):
                               "fertile_end_date", "fertile_source"], axis=1)
         df = df.rename(columns={"period_start_date": self.dt_col})
         df[self.dt_col] = pd.to_datetime(df[self.dt_col])
-        df.to_csv(self.new_dir, index=False)
+
+        return df
