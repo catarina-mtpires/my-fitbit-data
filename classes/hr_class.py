@@ -33,7 +33,6 @@ class HeartRateClass(DataClass):
 
 
 class RestingHeartRateClass(DataClass):
-
     def __init__(self, initialize_df=True):
         directory = c.RHR
         orig_dir = directory["orig"]

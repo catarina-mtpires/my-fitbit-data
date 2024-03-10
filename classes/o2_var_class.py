@@ -4,7 +4,6 @@ from classes.base_class import DataClass
 
 
 class O2VarClass(DataClass):
-
     def __init__(self, initialize_df=True):
         directory = c.O2_VAR
         orig_dir = directory["orig"]

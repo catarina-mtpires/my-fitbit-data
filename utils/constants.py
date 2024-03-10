@@ -42,6 +42,8 @@ AZM_SEDENTARY = {"orig": ORIG_PH_DIR + "active_minutes/sedentary_minutes/sedenta
                  "new": NEW_PH_DIR + "sedentary_minutes.csv"}
 AZM_VERY_ACTIVE = {"orig": ORIG_PH_DIR + "active_minutes/very_active_minutes/very_active_minutes-*.json",
                    "new": NEW_PH_DIR + "very_active_minutes.csv"}
+SLEEP = {"orig": ORIG_SLEEP_DIR + "sleep/sleep-*.json",
+         "new": NEW_SLEEP_DIR + "sleep_data.csv"}
 
 # Multiple daily data
 HR = {"orig": ORIG_HEART_DIR + "heart_rate/heart_rate-*.json",
@@ -64,6 +66,8 @@ MIN_SPO2 = {"orig": ORIG_SLEEP_DIR + "minute_spo2/Minute SpO2 - *.csv",
             "new": NEW_SLEEP_DIR + "minute_spo2.csv"}
 AZM = {"orig": ORIG_PH_DIR + "active_minutes/active_zone_minutes/Active Zone Minutes - *.csv",
        "new": NEW_PH_DIR + "active_zone_minutes.csv"}
+DETAILED_SLEEP = {"orig": ORIG_SLEEP_DIR + "sleep/sleep-*.json",
+                  "new": NEW_SLEEP_DIR + "detailed_sleep.csv"}
 
 # Recorded activity and signals
 ECG = {"orig": ORIG_HEART_DIR + "ecg/afib_ecg_reading_*.csv",
@@ -79,9 +83,6 @@ MENST = {"orig": ORIG_MENST_DIR + "menstrual_health_cycles.csv",
 
 
 # Missing
-SLEEP = {"orig": ORIG_SLEEP_DIR + "sleep/sleep-*.json",
-         "new": NEW_SLEEP_DIR + "sleep_data.csv"}
-
 EXERCISE = {"orig": ORIG_PH_DIR + "exercise/exercise-*.json",
             "new": NEW_PH_DIR + "exercise_data.csv"}
 

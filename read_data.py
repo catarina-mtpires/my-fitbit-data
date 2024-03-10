@@ -36,6 +36,8 @@ if done:
     comp_temp = sleep_class.ComputedTemperatureClass()
     min_spo2 = sleep_class.MinSPO2Class()
     snore = sleep_class.SnoreClass()
+    sleep = sleep_class.DailySleepClass()
+    detailed_sleep = sleep_class.DetailedSleepClass()
 
     stress_score = stress_class.StressScoreClass()
     eda = stress_class.EDAClass()
@@ -44,5 +46,4 @@ if done:
 
 else:
     pass
-    # sleep-2023-07-13.json
     # exercise-100.json
