@@ -26,6 +26,7 @@ if done:
     lightly_am = ph_class.LightlyActiveClass()
     moderately_am = ph_class.ModeratelyActiveClass()
     very_am = ph_class.VeryActiveClass()
+    exercise = ph_class.ExerciseClass()
 
     hrv = sleep_class.HeartRateVariabilityClass()
     wrist_temp = sleep_class.WristTemperatureClass()
@@ -46,4 +47,3 @@ if done:
 
 else:
     pass
-    # exercise-100.json

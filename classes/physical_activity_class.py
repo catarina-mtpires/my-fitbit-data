@@ -176,3 +176,66 @@ class ActiveZoneMinClass(DataClass):
 
         return df
 
+
+class ExerciseClass(DataClass):
+    def __init__(self, initialize_df=True):
+        directory = c.EXERCISE
+        orig_dir = directory["orig"]
+        new_dir = directory["new"]
+        super().__init__(orig_dir=orig_dir, new_dir=new_dir, initialize_df=initialize_df)
+
+    def create_df(self):
+        data = self.read_json()
+        common_vars = ["activityName", "startTime", "duration", "averageHeartRate", "calories", "heartRateZones"]
+        all_vars = common_vars + ["elevationGain", "steps"]
+        var_names_dict = {
+            "Aerobic Workout": common_vars + ["steps"],
+            "Sport": common_vars + ["steps"],
+            "Fitstar: Personal Trainer": common_vars + ["steps"],
+            "Outdoor Bike": common_vars + ["elevationGain"],
+            "Walk": all_vars, "Workout": all_vars, "Weights": all_vars, "Spinning": all_vars, "Elliptical": all_vars,
+            "Treadmill": all_vars, "Hike": all_vars, "Run": all_vars
+        }
+        activity, start_time, duration, avg_hr, calories, elevation_gain, steps, out_range_min, out_range_cal,\
+            fat_burn_min, fat_burn_cal, cardio_min, cardio_cal, peak_min, peak_cal = [], [], [], [], [], [], [], [],\
+            [], [], [], [], [], [], []
+
+        for exercise in data:
+            if exercise["activityName"] in list(var_names_dict.keys()):
+                ex_vars = var_names_dict[exercise["activityName"]]
+                if set(ex_vars).difference(exercise.keys()) == set():
+                    activity.append(exercise["activityName"])
+                    start_time.append(datetime.datetime.strptime(exercise["startTime"], "%m/%d/%y %H:%M:%S"))
+                    duration.append(round(exercise["duration"]/60000, 1))
+                    avg_hr.append(exercise["averageHeartRate"])
+                    calories.append(exercise["calories"])
+                    for hr_zone in exercise["heartRateZones"]:
+                        if hr_zone["name"] == "Out of Range":
+                            out_range_min.append(hr_zone["minutes"])
+                            out_range_cal.append(hr_zone["caloriesOut"])
+                        elif hr_zone["name"] == "Fat Burn":
+                            fat_burn_min.append(hr_zone["minutes"])
+                            fat_burn_cal.append(hr_zone["caloriesOut"])
+                        elif hr_zone["name"] == "Cardio":
+                            cardio_min.append(hr_zone["minutes"])
+                            cardio_cal.append(hr_zone["caloriesOut"])
+                        elif hr_zone["name"] == "Peak":
+                            peak_min.append(hr_zone["minutes"])
+                            peak_cal.append(hr_zone["caloriesOut"])
+
+                    if "elevationGain" in ex_vars:
+                        elevation_gain.append(exercise["elevationGain"])
+                    else:
+                        elevation_gain.append(None)
+                    if "steps" in ex_vars:
+                        steps.append(exercise["steps"])
+                    else:
+                        steps.append(None)
+
+        df = pd.DataFrame({"activity": activity, self.dt_col: start_time, "duration": duration, "average_hr": avg_hr,
+                           "calories": calories, "elevation_gain": elevation_gain, "steps": steps,
+                           "out_range_min": out_range_min, "out_range_cal": out_range_cal, "fat_burn_min": fat_burn_min,
+                           "fat_burn_cal": fat_burn_cal, "cardio_min": cardio_min, "cardio_cal": cardio_cal,
+                           "peak_min": peak_min, "peak_cal": peak_cal})
+
+        return df
