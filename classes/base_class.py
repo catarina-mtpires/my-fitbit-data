@@ -5,13 +5,14 @@ import pandas as pd
 
 
 class DataClass:
-    def __init__(self, orig_dir=None, new_dir=None, dt_col="datetime", value_col="value", initialize_df=True,
+    def __init__(self, orig_dir=None, new_dir=None, dt_col="datetime", value_col="value", initialize_df=True, name=None,
                  sort_values=True, additional_dt_cols=None):
         self.orig_dir = orig_dir
         self.new_dir = new_dir
         self.dt_col = dt_col
         self.value_col = value_col
         self.df = None
+        self.name = name
         dt_cols = [self.dt_col]
         if additional_dt_cols:
             dt_cols += additional_dt_cols

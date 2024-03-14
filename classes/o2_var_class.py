@@ -4,11 +4,11 @@ from classes.base_class import DataClass
 
 
 class O2VarClass(DataClass):
-    def __init__(self, initialize_df=True):
+    def __init__(self, initialize_df=True, name="o2_var"):
         directory = c.O2_VAR
         orig_dir = directory["orig"]
         new_dir = directory["new"]
-        super().__init__(orig_dir=orig_dir, new_dir=new_dir, initialize_df=initialize_df)
+        super().__init__(orig_dir=orig_dir, new_dir=new_dir, initialize_df=initialize_df, name=name)
 
     def create_df(self):
         df = self.read_csv()

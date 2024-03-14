@@ -5,11 +5,11 @@ from classes.base_class import DataClass
 
 
 class HeartRateVariabilityClass(DataClass):
-    def __init__(self, initialize_df=True):
+    def __init__(self, initialize_df=True, name="hrv"):
         directory = c.HRV_DETAILED
         orig_dir = directory["orig"]
         new_dir = directory["new"]
-        super().__init__(orig_dir=orig_dir, new_dir=new_dir, initialize_df=initialize_df)
+        super().__init__(orig_dir=orig_dir, new_dir=new_dir, initialize_df=initialize_df, name=name)
 
     def create_df(self):
         df = self.read_csv()
@@ -20,11 +20,11 @@ class HeartRateVariabilityClass(DataClass):
 
 
 class WristTemperatureClass(DataClass):
-    def __init__(self, initialize_df=True):
+    def __init__(self, initialize_df=True, name="wrist_temperature"):
         directory = c.WRIST_TEMP
         orig_dir = directory["orig"]
         new_dir = directory["new"]
-        super().__init__(orig_dir=orig_dir, new_dir=new_dir, initialize_df=initialize_df)
+        super().__init__(orig_dir=orig_dir, new_dir=new_dir, initialize_df=initialize_df, name=name)
 
     def create_df(self):
         df = self.read_csv()
@@ -35,11 +35,11 @@ class WristTemperatureClass(DataClass):
 
 
 class ComputedTemperatureClass(DataClass):
-    def __init__(self, initialize_df=True):
+    def __init__(self, initialize_df=True, name="computed_temperature"):
         directory = c.COMP_TEMP
         orig_dir = directory["orig"]
         new_dir = directory["new"]
-        super().__init__(orig_dir=orig_dir, new_dir=new_dir, initialize_df=initialize_df)
+        super().__init__(orig_dir=orig_dir, new_dir=new_dir, initialize_df=initialize_df, name=name)
 
     def create_df(self):
         df = self.read_csv()
@@ -51,11 +51,11 @@ class ComputedTemperatureClass(DataClass):
 
 
 class RespiratoryRateClass(DataClass):
-    def __init__(self, initialize_df=True):
+    def __init__(self, initialize_df=True, name="respiratory_rate"):
         directory = c.RR
         orig_dir = directory["orig"]
         new_dir = directory["new"]
-        super().__init__(orig_dir=orig_dir, new_dir=new_dir, initialize_df=initialize_df)
+        super().__init__(orig_dir=orig_dir, new_dir=new_dir, initialize_df=initialize_df, name=name)
 
     def create_df(self):
         df = self.read_csv()
@@ -68,11 +68,11 @@ class RespiratoryRateClass(DataClass):
 
 
 class DailyHeartRateVariabilityClass(DataClass):
-    def __init__(self, initialize_df=True):
+    def __init__(self, initialize_df=True, name="daily_hrv"):
         directory = c.HRV_DAILY
         orig_dir = directory["orig"]
         new_dir = directory["new"]
-        super().__init__(orig_dir=orig_dir, new_dir=new_dir, initialize_df=initialize_df)
+        super().__init__(orig_dir=orig_dir, new_dir=new_dir, initialize_df=initialize_df, name=name)
 
     def create_df(self):
         df = self.read_csv()
@@ -83,11 +83,11 @@ class DailyHeartRateVariabilityClass(DataClass):
 
 
 class HeartRateVariabilityHistClass(DataClass):
-    def __init__(self, initialize_df=True):
+    def __init__(self, initialize_df=True, name="hrv_hist"):
         directory = c.HRV_HIST
         orig_dir = directory["orig"]
         new_dir = directory["new"]
-        super().__init__(orig_dir=orig_dir, new_dir=new_dir, initialize_df=initialize_df, sort_values=False)
+        super().__init__(orig_dir=orig_dir, new_dir=new_dir, initialize_df=initialize_df, sort_values=False, name=name)
 
     def create_df(self):
         df = self.read_csv()
@@ -107,11 +107,11 @@ class HeartRateVariabilityHistClass(DataClass):
 
 
 class SleepScoreClass(DataClass):
-    def __init__(self, initialize_df=True):
+    def __init__(self, initialize_df=True, name="sleep_score"):
         directory = c.SLEEP_SCORE
         orig_dir = directory["orig"]
         new_dir = directory["new"]
-        super().__init__(orig_dir=orig_dir, new_dir=new_dir, initialize_df=initialize_df)
+        super().__init__(orig_dir=orig_dir, new_dir=new_dir, initialize_df=initialize_df, name=name)
 
     def create_df(self):
         df = self.read_csv()
@@ -125,11 +125,11 @@ class SleepScoreClass(DataClass):
 
 
 class MinSPO2Class(DataClass):
-    def __init__(self, initialize_df=True):
+    def __init__(self, initialize_df=True, name="min_spo2"):
         directory = c.MIN_SPO2
         orig_dir = directory["orig"]
         new_dir = directory["new"]
-        super().__init__(orig_dir=orig_dir, new_dir=new_dir, initialize_df=initialize_df)
+        super().__init__(orig_dir=orig_dir, new_dir=new_dir, initialize_df=initialize_df, name=name)
 
     def create_df(self):
         df = self.read_csv()
@@ -141,11 +141,11 @@ class MinSPO2Class(DataClass):
 
 
 class SnoreClass(DataClass):
-    def __init__(self, initialize_df=True):
+    def __init__(self, initialize_df=True, name="snore"):
         directory = c.SNORE
         orig_dir = directory["orig"]
         new_dir = directory["new"]
-        super().__init__(orig_dir=orig_dir, new_dir=new_dir, initialize_df=initialize_df)
+        super().__init__(orig_dir=orig_dir, new_dir=new_dir, initialize_df=initialize_df, name=name)
 
     def create_df(self):
         df = self.read_csv()
@@ -157,12 +157,12 @@ class SnoreClass(DataClass):
 
 
 class DailySleepClass(DataClass):
-    def __init__(self, initialize_df=True):
+    def __init__(self, initialize_df=True, name="daily_sleep"):
         directory = c.SLEEP
         orig_dir = directory["orig"]
         new_dir = directory["new"]
         self.id_col = "id"
-        super().__init__(orig_dir=orig_dir, new_dir=new_dir, initialize_df=initialize_df,
+        super().__init__(orig_dir=orig_dir, new_dir=new_dir, initialize_df=initialize_df, name=name,
                          additional_dt_cols=["start", "end"])
 
     def create_df(self):
@@ -204,12 +204,12 @@ class DailySleepClass(DataClass):
 
 
 class DetailedSleepClass(DataClass):
-    def __init__(self, initialize_df=True):
+    def __init__(self, initialize_df=True, name="detailed_sleep"):
         directory = c.DETAILED_SLEEP
         orig_dir = directory["orig"]
         new_dir = directory["new"]
         self.id_col = "id"
-        super().__init__(orig_dir=orig_dir, new_dir=new_dir, initialize_df=initialize_df, sort_values=False)
+        super().__init__(orig_dir=orig_dir, new_dir=new_dir, initialize_df=initialize_df, sort_values=False, name=name)
 
     def create_df(self):
         sleep_data = self.read_json()
