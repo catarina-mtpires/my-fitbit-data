@@ -6,9 +6,7 @@ from classes.base_class import DataClass
 class MenstrualCycleClass(DataClass):
     def __init__(self, initialize_df=True, name="menstrual_cycle"):
         directory = c.MENST
-        orig_dir = directory["orig"]
-        new_dir = directory["new"]
-        super().__init__(orig_dir=orig_dir, new_dir=new_dir, initialize_df=initialize_df, name=name)
+        super().__init__(directory=directory, initialize_df=initialize_df, name=name)
 
     def create_df(self):
         df = self.read_csv()

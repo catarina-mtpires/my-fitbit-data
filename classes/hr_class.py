@@ -9,9 +9,7 @@ class HeartRateClass(DataClass):
     def __init__(self, initialize_df=True, name="hr"):
         self.minute_int = 1
         directory = c.HR
-        orig_dir = directory["orig"]
-        new_dir = directory["new"]
-        super().__init__(orig_dir=orig_dir, new_dir=new_dir, initialize_df=initialize_df, name=name)
+        super().__init__(directory=directory, initialize_df=initialize_df, name=name)
 
     def create_df(self):
         hr_data = self.read_json()
@@ -35,9 +33,7 @@ class HeartRateClass(DataClass):
 class RestingHeartRateClass(DataClass):
     def __init__(self, initialize_df=True, name="rhr"):
         directory = c.RHR
-        orig_dir = directory["orig"]
-        new_dir = directory["new"]
-        super().__init__(orig_dir=orig_dir, new_dir=new_dir, initialize_df=initialize_df, name=name)
+        super().__init__(directory=directory, initialize_df=initialize_df, name=name)
 
     def create_df(self):
         rhr_data = self.read_json()
@@ -56,10 +52,8 @@ class RestingHeartRateClass(DataClass):
 class ECGClass(DataClass):
     def __init__(self, initialize_df=True, name="ecg"):
         directory = c.ECG
-        orig_dir = directory["orig"]
-        new_dir = directory["new"]
         self.id_col = "id"
-        super().__init__(orig_dir=orig_dir, new_dir=new_dir, initialize_df=initialize_df, sort_values=False, name=name)
+        super().__init__(directory=directory, initialize_df=initialize_df, sort_values=False, name=name)
 
     def create_df(self):
         signal_duration = 30

@@ -5,10 +5,14 @@ import pandas as pd
 
 
 class DataClass:
-    def __init__(self, orig_dir=None, new_dir=None, dt_col="datetime", value_col="value", initialize_df=True, name=None,
-                 sort_values=True, additional_dt_cols=None):
-        self.orig_dir = orig_dir
-        self.new_dir = new_dir
+    def __init__(self, directory=None, orig_dir=None, new_dir=None, dt_col="datetime", value_col="value", initialize_df=True,
+                 name=None, sort_values=True, additional_dt_cols=None):
+        if directory is None:
+            self.orig_dir = orig_dir
+            self.new_dir = new_dir
+        else:
+            self.orig_dir = directory["orig"]
+            self.new_dir = directory["new"]
         self.dt_col = dt_col
         self.value_col = value_col
         self.df = None

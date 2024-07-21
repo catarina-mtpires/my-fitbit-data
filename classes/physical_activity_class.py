@@ -5,10 +5,10 @@ from classes.base_class import DataClass
 
 
 class DailyDataClass(DataClass):
-    def __init__(self, orig_dir=None, new_dir=None, daily=False, dt_col="datetime", value_col="value",
+    def __init__(self, directory, daily=False, dt_col="datetime", value_col="value",
                  initialize_df=True, name=None):
         self.daily = daily
-        super().__init__(orig_dir=orig_dir, new_dir=new_dir, dt_col=dt_col, value_col=value_col,
+        super().__init__(directory=directory, dt_col=dt_col, value_col=value_col,
                          initialize_df=initialize_df, name=name)
 
     def create_df(self):
@@ -28,73 +28,55 @@ class DailyDataClass(DataClass):
 class StepsClass(DailyDataClass):
     def __init__(self, initialize_df=True, name="steps"):
         directory = c.STEPS
-        orig_dir = directory["orig"]
-        new_dir = directory["new"]
-        super().__init__(orig_dir=orig_dir, new_dir=new_dir, initialize_df=initialize_df, name=name)
+        super().__init__(directory=directory, initialize_df=initialize_df, name=name)
 
 
 class DistanceClass(DailyDataClass):
     def __init__(self, initialize_df=True, name="distance"):
         directory = c.DISTANCE
-        orig_dir = directory["orig"]
-        new_dir = directory["new"]
-        super().__init__(orig_dir=orig_dir, new_dir=new_dir, initialize_df=initialize_df, name=name)
+        super().__init__(directory=directory, initialize_df=initialize_df, name=name)
 
 
 class AltitudeClass(DailyDataClass):
     def __init__(self, initialize_df=True, name="altitude"):
         directory = c.ALTITUDE
-        orig_dir = directory["orig"]
-        new_dir = directory["new"]
-        super().__init__(orig_dir=orig_dir, new_dir=new_dir, initialize_df=initialize_df, name=name)
+        super().__init__(directory=directory, initialize_df=initialize_df, name=name)
 
 
 class CaloriesClass(DailyDataClass):
     def __init__(self, initialize_df=True, name="calories"):
         directory = c.CALORIES
-        orig_dir = directory["orig"]
-        new_dir = directory["new"]
-        super().__init__(orig_dir=orig_dir, new_dir=new_dir, initialize_df=initialize_df, name=name)
+        super().__init__(directory=directory, initialize_df=initialize_df, name=name)
 
 
 class LightlyActiveClass(DailyDataClass):
     def __init__(self, initialize_df=True, name="lightly_active"):
         directory = c.AZM_LIGHT
-        orig_dir = directory["orig"]
-        new_dir = directory["new"]
-        super().__init__(orig_dir=orig_dir, new_dir=new_dir, daily=True, initialize_df=initialize_df, name=name)
+        super().__init__(directory=directory, daily=True, initialize_df=initialize_df, name=name)
 
 
 class ModeratelyActiveClass(DailyDataClass):
     def __init__(self, initialize_df=True, name="moderately_active"):
         directory = c.AZM_MODERATE
-        orig_dir = directory["orig"]
-        new_dir = directory["new"]
-        super().__init__(orig_dir=orig_dir, new_dir=new_dir, daily=True, initialize_df=initialize_df, name=name)
+        super().__init__(directory=directory, daily=True, initialize_df=initialize_df, name=name)
 
 
 class SedentaryClass(DailyDataClass):
     def __init__(self, initialize_df=True, name="sedentary"):
         directory = c.AZM_SEDENTARY
-        orig_dir = directory["orig"]
-        new_dir = directory["new"]
-        super().__init__(orig_dir=orig_dir, new_dir=new_dir, daily=True, initialize_df=initialize_df, name=name)
+        super().__init__(directory=directory, daily=True, initialize_df=initialize_df, name=name)
 
 
 class VeryActiveClass(DailyDataClass):
     def __init__(self, initialize_df=True, name="very_active"):
         directory = c.AZM_VERY_ACTIVE
-        orig_dir = directory["orig"]
-        new_dir = directory["new"]
-        super().__init__(orig_dir=orig_dir, new_dir=new_dir, daily=True, initialize_df=initialize_df, name=name)
+        super().__init__(directory=directory, daily=True, initialize_df=initialize_df, name=name)
 
 
 class DailyReadinessClass(DataClass):
     def __init__(self, initialize_df=True, name="daily_readiness"):
         directory = c.DRS
-        orig_dir = directory["orig"]
-        new_dir = directory["new"]
-        super().__init__(orig_dir=orig_dir, new_dir=new_dir, initialize_df=initialize_df, name=name)
+        super().__init__(directory=directory, initialize_df=initialize_df, name=name)
 
     def create_df(self):
         df = self.read_csv()
@@ -109,9 +91,7 @@ class DailyReadinessClass(DataClass):
 class Vo2MaxClass(DataClass):
     def __init__(self, initialize_df=True, name="vo2_max"):
         directory = c.VO2_MAX
-        orig_dir = directory["orig"]
-        new_dir = directory["new"]
-        super().__init__(orig_dir=orig_dir, new_dir=new_dir, initialize_df=initialize_df, name=name)
+        super().__init__(directory=directory, initialize_df=initialize_df, name=name)
 
     def create_df(self):
         data = self.read_json()
@@ -128,14 +108,12 @@ class Vo2MaxClass(DataClass):
 class TimeHRZonesClass(DataClass):
     def __init__(self, initialize_df=True, name="time_hr_zones"):
         directory = c.TIME_IN_HR_ZONES
-        orig_dir = directory["orig"]
-        new_dir = directory["new"]
         self.fat_burn = 121
         self.cardio = 147
         self.peak = 180
         self.custom_low = 40
         self.custom_high = 200
-        super().__init__(orig_dir=orig_dir, new_dir=new_dir, initialize_df=initialize_df, name=name)
+        super().__init__(directory=directory, initialize_df=initialize_df, name=name)
 
     def create_df(self):
         data = self.read_json()
@@ -165,9 +143,7 @@ class TimeHRZonesClass(DataClass):
 class ActiveZoneMinClass(DataClass):
     def __init__(self, initialize_df=True, name="active_zone_minutes"):
         directory = c.AZM
-        orig_dir = directory["orig"]
-        new_dir = directory["new"]
-        super().__init__(orig_dir=orig_dir, new_dir=new_dir, initialize_df=initialize_df, name=name)
+        super().__init__(directory=directory, initialize_df=initialize_df, name=name)
 
     def create_df(self):
         df = self.read_csv()
@@ -180,9 +156,7 @@ class ActiveZoneMinClass(DataClass):
 class ExerciseClass(DataClass):
     def __init__(self, initialize_df=True, name="exercise"):
         directory = c.EXERCISE
-        orig_dir = directory["orig"]
-        new_dir = directory["new"]
-        super().__init__(orig_dir=orig_dir, new_dir=new_dir, initialize_df=initialize_df, name=name)
+        super().__init__(directory=directory, initialize_df=initialize_df, name=name)
 
     def create_df(self):
         data = self.read_json()
